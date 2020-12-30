@@ -11,6 +11,7 @@
         "build:js": "babel src --out-dir lib --extensions \".ts,.tsx\" --source-maps inline",
         "build:types": "tsc --emitDeclarationOnly",
         "lint": "eslint .",
+        "prepublishOnly": "npm run build",
         "storybook": "start-storybook -p 6006",
         "type-check": "tsc --noEmit",
         "type-check:watch": "npm run type-check -- --watch"
