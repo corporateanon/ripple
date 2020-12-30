@@ -18,16 +18,18 @@ const useStyles = createUseStyles({
     },
 });
 
-interface IRippleBodyGeometry {
+interface IRippleBodyInstance {
     x: number;
     y: number;
     size: number;
+    color: string;
 }
 
 interface IRippleProps {
     color?: string | string[];
     unbounded?: boolean;
     unboundedSize?: number;
+    timeout?: number;
 }
 
 const getRippleRadius = (rect: DOMRect, targetX: number, targetY: number) => {
@@ -43,13 +45,14 @@ export const Ripple: FC<IRippleProps> = ({
     color = '#888',
     unboundedSize = 1000,
     unbounded,
+    timeout = 800,
 }) => {
-    const rippleColor = Array.isArray(color)
+    const instanceColor = Array.isArray(color)
         ? color[Math.floor(Math.random() * color.length)]
         : color;
 
-    const [stack, setStack] = useState<ImmutableStack<IRippleBodyGeometry>>(
-        new ImmutableStack<IRippleBodyGeometry>()
+    const [stack, setStack] = useState<ImmutableStack<IRippleBodyInstance>>(
+        new ImmutableStack<IRippleBodyInstance>()
     );
 
     const handleMouseUp = useCallback(
@@ -63,8 +66,15 @@ export const Ripple: FC<IRippleProps> = ({
                     ? unboundedSize / 2
                     : getRippleRadius(rect, x, y);
 
-            setStack(stack.push({ x, y, size: rippleRadius * 2 }));
-            setTimeout(() => setStack((stack) => stack.pop()), 800); //TODO: unhardcode timeout
+            setStack(
+                stack.push({
+                    x,
+                    y,
+                    size : rippleRadius * 2,
+                    color: instanceColor,
+                })
+            );
+            setTimeout(() => setStack((stack) => stack.pop()), timeout);
         },
         [stack]
     );
@@ -86,7 +96,11 @@ export const Ripple: FC<IRippleProps> = ({
                         position: 'absolute',
                     }}
                 >
-                    <RippleBody size={item.size} color={rippleColor} />
+                    <RippleBody
+                        size={item.size}
+                        color={item.color}
+                        timeout={timeout}
+                    />
                 </div>
             ))}
         </div>

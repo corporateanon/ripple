@@ -30,12 +30,6 @@ export const Main = () => {
     const classes = useStyles();
     return (
         <div>
-            <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam est
-                vero nisi enim inventore earum voluptates! Qui doloribus, labore
-                nemo quos aspernatur, neque tenetur minima fugit, ratione
-                maiores eum dolorum.
-            </p>
             <button className={classes.button}>
                 <Ripple />
                 Hello
@@ -45,7 +39,7 @@ export const Main = () => {
                 Rainbow
             </button>
             <button className={classes.button}>
-                <Ripple unbounded />
+                <Ripple unbounded unboundedSize={400} />
                 Unbounded
             </button>
         </div>

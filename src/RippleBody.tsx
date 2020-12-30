@@ -2,31 +2,11 @@ import clsx from 'clsx';
 import React, { CSSProperties, FC, useEffect, useMemo, useState } from 'react';
 import { createUseStyles } from 'react-jss';
 
-const useStyles = createUseStyles({
-    root: {
-        background  : 'red',
-        position    : 'absolute',
-        top         : (theme) => -theme.size / 2,
-        left        : (theme) => -theme.size / 2,
-        width       : (theme) => theme.size,
-        height      : (theme) => theme.size,
-        borderRadius: (theme) => theme.size / 2,
-    },
-    notRunning: {
-        transform: (theme) => `scale(${1 / theme.size})`,
-    },
-    running: {
-        transitionProperty: 'transform, opacity',
-        transitionDuration: '0.8s',
-        transform         : 'scale(1)',
-        opacity           : 0,
-    },
-});
-
 const getStyles = (
     size: number,
     running: boolean,
-    color: string
+    color: string,
+    timeout: number
 ): CSSProperties => ({
     background   : color,
     position     : 'absolute',
@@ -41,7 +21,7 @@ const getStyles = (
     ...(running
         ? {
             transitionProperty: 'transform, opacity',
-            transitionDuration: '0.8s',
+            transitionDuration: `${timeout / 1000}s`,
             transform         : 'scale(1)',
             opacity           : 0,
         }
@@ -51,10 +31,12 @@ const getStyles = (
 export interface IRippleBodyProps {
     size?: number;
     color?: string;
+    timeout?: number;
 }
 export const RippleBody: FC<IRippleBodyProps> = ({
     size = 1000,
     color = '#999',
+    timeout = 800,
 }) => {
     const [running, setRunning] = useState(false);
     useEffect(() => {
@@ -62,7 +44,7 @@ export const RippleBody: FC<IRippleBodyProps> = ({
             setRunning(true);
         }, 1);
     }, []);
-    const styles = useMemo(() => getStyles(size, running, color), [
+    const styles = useMemo(() => getStyles(size, running, color, timeout), [
         size,
         running,
         color,
