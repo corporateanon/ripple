@@ -46,6 +46,7 @@ export const RippleBody: FC<IRippleBodyProps> = ({
         size,
         running,
         color,
+        timeout,
     ]);
     return <div style={styles} />;
 };

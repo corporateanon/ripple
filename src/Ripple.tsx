@@ -1,9 +1,9 @@
+import clsx from 'clsx';
 import React, { FC, useCallback, useState } from 'react';
 import { createUseStyles } from 'react-jss';
-import { RippleBody } from './RippleBody';
-import clsx from 'clsx';
 import { ImmutableStack } from './ImmutableStack';
 import { randomElement } from './randomElement';
+import { RippleBody } from './RippleBody';
 
 const useStyles = createUseStyles({
     root: {
@@ -43,10 +43,10 @@ const getRippleRadius = (rect: DOMRect, targetX: number, targetY: number) => {
 };
 
 export const Ripple: FC<IRippleProps> = ({
-    color = '#888',
+    color = '#999',
     unboundedSize = 1000,
-    unbounded,
     timeout = 800,
+    unbounded,
 }) => {
     const classes = useStyles();
 

@@ -1,7 +1,7 @@
 import { Meta } from '@storybook/react/types-6-0';
 import React, { FC } from 'react';
 import { createUseStyles } from 'react-jss';
-import { Ripple } from '../Ripple';
+import { Ripple } from '../src/Ripple';
 
 export default {
     title: 'Ripple',

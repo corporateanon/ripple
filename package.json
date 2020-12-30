@@ -2,9 +2,13 @@
     "name": "ripple",
     "version": "0.0.1",
     "description": "An example of ripple effect",
-    "license": "ISC",
-    "author": "",
-    "main": "index.js",
+    "license": "WTFPL",
+    "author": "corporateanon <corporateanon@gmail.com>",
+    "main": "lib/main.js",
+    "types": "lib/src/main.d.ts",
+    "files": [
+        "lib"
+    ],
     "scripts": {
         "build": "npm run build:types && npm run build:js",
         "build-storybook": "build-storybook",
