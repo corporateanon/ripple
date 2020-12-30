@@ -1,5 +1,5 @@
 import { Meta } from '@storybook/react/types-6-0';
-import React from 'react';
+import React, { FC } from 'react';
 import { createUseStyles } from 'react-jss';
 import { Ripple } from '../Ripple';
 
@@ -26,7 +26,7 @@ const rainbowColors = [
     'violet',
 ];
 
-export const Main = () => {
+export const Main: FC = () => {
     const classes = useStyles();
     return (
         <div>

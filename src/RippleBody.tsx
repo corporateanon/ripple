@@ -1,6 +1,4 @@
-import clsx from 'clsx';
 import React, { CSSProperties, FC, useEffect, useMemo, useState } from 'react';
-import { createUseStyles } from 'react-jss';
 
 const getStyles = (
     size: number,

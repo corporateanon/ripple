@@ -3,6 +3,7 @@ import { createUseStyles } from 'react-jss';
 import { RippleBody } from './RippleBody';
 import clsx from 'clsx';
 import { ImmutableStack } from './ImmutableStack';
+import { randomElement } from './randomElement';
 
 const useStyles = createUseStyles({
     root: {
@@ -47,9 +48,11 @@ export const Ripple: FC<IRippleProps> = ({
     unbounded,
     timeout = 800,
 }) => {
-    const instanceColor = Array.isArray(color)
-        ? color[Math.floor(Math.random() * color.length)]
-        : color;
+    const classes = useStyles();
+
+    const rootClass = clsx(classes.root, {
+        [classes.unbounded]: unbounded,
+    });
 
     const [stack, setStack] = useState<ImmutableStack<IRippleBodyInstance>>(
         new ImmutableStack<IRippleBodyInstance>()
@@ -71,19 +74,13 @@ export const Ripple: FC<IRippleProps> = ({
                     x,
                     y,
                     size : rippleRadius * 2,
-                    color: instanceColor,
+                    color: Array.isArray(color) ? randomElement(color) : color,
                 })
             );
             setTimeout(() => setStack((stack) => stack.pop()), timeout);
         },
         [stack]
     );
-
-    const classes = useStyles();
-
-    const rootClass = clsx(classes.root, {
-        [classes.unbounded]: unbounded,
-    });
 
     return (
         <div className={rootClass} onMouseUp={handleMouseUp}>
